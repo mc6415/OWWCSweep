@@ -1,8 +1,8 @@
 {
-  "name": "overwatchpotgchallenge",
+  "name": "cavalriesere",
   "version": "0.0.1",
   "private": true,
-  "description": "A tracker for the Overwatch POTG challenge me and a few friends have",
+  "description": "Cheers loves, the cavalries 'ere!",
   "author": "Michael Coombes",
   "dependencies": {
     "body-parser": "^1.15.2",
