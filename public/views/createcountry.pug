@@ -1,0 +1,15 @@
+extends ./layout.pug
+
+block content
+  h1 Create Country
+  form(action='/country/create', method='POST')
+    .form-group
+      label(for='name') Country Name
+      input.form-control#name(type='text', name='name')
+    .form-group
+      label(for='code') Country Code
+      input.form-control#code(type='text', name='code')
+    .form-group
+      label(for='desc') Description
+      textarea.form-control#desc(type='textarea', style='resize:none', name='desc')
+    input.btn.btn-primary(type='submit')

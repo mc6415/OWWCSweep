@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000,
     app = express(),
     path = require('path'),
     bodyParser = require('body-parser'),
-  //  controllers = require('./server/controllers/Namespace.js'),
+    controllers = require('./server/controllers/Namespace.js'),
     mongoose = require('mongoose'),
     cookieParser = require('cookie-parser');
     multer = require('multer');
@@ -15,7 +15,7 @@ var log = function(entry) {
     fs.appendFileSync('/tmp/sample-app.log', new Date().toISOString() + ' - ' + entry + '\n');
 };
 
-mongoose.connect('mongodb://mc6415:owpotg@ds033956.mlab.com:33956/ow_potg')
+mongoose.connect('mongodb://sa:pass@ds029454.mlab.com:29454/cavalriesere')
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/public/views');
 
@@ -29,6 +29,9 @@ app.use('/css', express.static(__dirname + '/public/css'))
 app.get('/', function(req,res){
   res.render('index');
 })
+app.get('/country/create/:access?', controllers.Country.createForm)
+
+app.post('/country/create', controllers.Country.create)
 
 // Listen on port 3000, IP defaults to 127.0.0.1
 app.listen(port, function(){
