@@ -1,3 +1,12 @@
 extends layout.pug
 
 block content
+  .col-xs-offset-4.well.col-xs-4(style='margin-top:50px')
+    form(action='/user/login', method='POST', style='text-align:center')
+      .form-group
+        label(for='username') Username
+        input.form-control#username(name='username')
+      .form-group
+        label(for='password') Password
+        input.form-control#password(name='password', type='password')
+      input.btn.btn-primary(type='submit')
