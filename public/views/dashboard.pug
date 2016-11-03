@@ -1,3 +1,21 @@
 extends ./layout.pug
 
 block content
+  br
+  .row
+    div.col-xs-5(style='border: 1px solid black;text-align:center')
+      h2 Overwatch World Cup
+      p
+      | Well the Overwatch world cup should hopefully be coming to a
+      | screen very close to us on the Friday evening, the quarter finals
+      | kick off at 7pm on the Friday just after the closing ceremonjy
+      | There are 8 teams left and in order to inject some excitement I've
+      | started a little sweepstake, press the button below to get a team
+      | assigned!
+      br
+      if typeof(country) == 'undefined'
+        a.btn.btn-primary(href='/sweepstakes/signup') Sign Up!
+    div.col-xs-offset-7(style='border: 1px solid black;text-align:center')
+      include ./countryPanel.pug
+  .row(style='text-align:center')
+    h1 Match Schedule:

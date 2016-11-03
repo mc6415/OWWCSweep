@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Country = require('../models/country')
 const sha256 = require('sha256');
 const randomstring = require('randomstring');
 
@@ -61,7 +62,15 @@ module.exports.dashboard = function(req,res){
   var loggedIn = isLoggedIn(req);
   if(!loggedIn) res.redirect('/');
 
-  res.render('dashboard', {loggedIn: loggedIn})
+  var countryTaken = Country.find({takenBy: JSON.parse(req.cookies.user).username}, function(err,docs){
+    if(docs.length > 0){
+      res.render('dashboard', {loggedIn: loggedIn, country: docs[0]})
+    } else {
+      res.render('dashboard', {loggedIn: loggedIn})
+    }
+  })
+
+
 
 }
 
