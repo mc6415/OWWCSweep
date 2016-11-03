@@ -25,12 +25,7 @@ module.exports.create = function(req,res){
   user.password = sha256(salt) + sha256(uDetails.password) + sha256(pepper);
 
   user.save(function(err, user){
-    if(typeof(err) == 'undefined'){
-      res.redirect('/');
-    } else{
-      const errorMessage = encodeURI("Error Saving Details Contact Admin");
-      res.redirect('/register/' + errorMessage)
-    }
+    res.redirect('/')
   })
 
 }
