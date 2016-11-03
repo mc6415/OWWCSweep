@@ -19,6 +19,13 @@ var isLoggedIn = function (req){
   return !loggedIn
 }
 
+var isAdmin = function(req){
+  if(isLoggedIn(req)){
+    return req.cookies.user.isAdmin > 0;
+  }
+  return false;
+}
+
 mongoose.connect('mongodb://sa:pass@ds029454.mlab.com:29454/cavalriesere')
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/public/views');
@@ -31,6 +38,7 @@ app.use('/js', express.static(__dirname + '/public/js'))
 app.use('/css', express.static(__dirname + '/public/css'))
 
 app.get('/', function(req,res){
+  if(isLoggedIn(req)) res.redirect('/dashboard')
   res.render('index', {error: '', loggedIn: isLoggedIn(req)});
 })
 app.get('/register/:err?', controllers.User.register)
@@ -39,6 +47,7 @@ app.get('/country/view/:code?', controllers.Country.view);
 app.get('/dashboard', controllers.User.dashboard)
 app.get('/user/signout', controllers.User.signout);
 app.get('/sweepstakes/signup', controllers.Sweepstakes.signup);
+app.get('/player/create', controllers.Player.createForm);
 
 app.post('/user/login', controllers.User.login)
 app.post('/country/create', controllers.Country.create)

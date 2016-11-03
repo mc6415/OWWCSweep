@@ -6,10 +6,17 @@ block content
       tr
         th Country
         th Taken By
+        th Points
     tbody
       for c in countries
         tr
           td=c.name
           td=c.takenBy
+          td=c.points
           td
             a.btn.btn-info(href='/country/view/' + c.code) View More
+          if isAdmin && c.eliminated == false
+            td
+              a.btn.btn-info +            
+            td
+              a.btn.btn-danger Eliminated

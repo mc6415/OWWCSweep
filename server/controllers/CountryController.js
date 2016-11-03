@@ -5,6 +5,13 @@ var isLoggedIn = function (req){
   return !loggedIn
 }
 
+var isAdmin = function(req){
+  if(isLoggedIn(req)){
+    return JSON.parse(req.cookies.user).isAdmin > 0;
+  }
+  return false;
+}
+
 module.exports.createForm = function(req,res){
   console.log(req.params)
   if(req.params["access"] == 'override'){
@@ -32,7 +39,7 @@ module.exports.view = function(req,res){
   console.log(isLoggedIn(req));
   if(typeof(req.params.code) == 'undefined'){
     Country.find({}, function(err,docs){
-      res.render('viewcountries', {countries: docs, loggedIn: isLoggedIn(req)})
+      res.render('viewcountries', {countries: docs, loggedIn: isLoggedIn(req), isAdmin: isAdmin(req)})
     })
   } else {
     Country.find({code: req.params.code}, function(err,docs){

@@ -45,6 +45,7 @@ module.exports.login = function(req,res){
           "_id" : user._id,
           "username": user.username,
           "email": user.email,
+          "isAdmin": user.isAdmin,
           "obfuscation": user.password
         }
         res.cookie('user', JSON.stringify(userCookie));
