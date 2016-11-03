@@ -29,10 +29,12 @@ app.use('/css', express.static(__dirname + '/public/css'))
 app.get('/', function(req,res){
   res.render('index');
 })
+app.get('/register/:err?', controllers.User.register)
 app.get('/country/create/:access?', controllers.Country.createForm)
 app.get('/country/view/:code?', controllers.Country.view);
 
 app.post('/country/create', controllers.Country.create)
+app.post('/user/create', controllers.User.create)
 
 // Listen on port 3000, IP defaults to 127.0.0.1
 app.listen(port, function(){

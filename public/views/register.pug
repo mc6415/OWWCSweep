@@ -1,0 +1,17 @@
+extends ./layout.pug
+
+block content
+  script.
+    toastr["error"]('#{error}')
+  h2 Register
+  form(action='/user/create', method='POST')
+    .form-group
+      label(for='username') Username
+      input.form-control(name='username', id='username')
+    .form-group
+      label(for='email') Email Address
+      input.form-control(name='email', id='email')
+    .form-group
+      label(for='pass') Password
+      input.form-control(name='password', id='password', type='password')
+    input.btn.btn-info(type='submit')
