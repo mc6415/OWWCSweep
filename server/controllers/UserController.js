@@ -47,7 +47,7 @@ module.exports.login = function(req,res){
           "obfuscation": user.password
         }
         res.cookie('user', JSON.stringify(userCookie));
-        res.redirect('/');
+        res.redirect('/dashboard');
       } else {
         res.redirect('/' + encodeURI("Couldn't log in was the password wrong?"))
       }
@@ -55,4 +55,17 @@ module.exports.login = function(req,res){
       res.redirect('/' + encodeURI("Username not found, please sign up before logging in"))
     }
   })
+}
+
+module.exports.dashboard = function(req,res){
+  var loggedIn = isLoggedIn(req);
+  if(!loggedIn) res.redirect('/');
+
+  res.render('dashboard', {loggedIn: loggedIn})
+
+}
+
+module.exports.signout = function(req,res){
+  res.clearCookie('user')
+  res.redirect('/');
 }

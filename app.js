@@ -36,6 +36,8 @@ app.get('/', function(req,res){
 app.get('/register/:err?', controllers.User.register)
 app.get('/country/create/:access?', controllers.Country.createForm)
 app.get('/country/view/:code?', controllers.Country.view);
+app.get('/dashboard', controllers.User.dashboard)
+app.get('/user/signout', controllers.User.signout);
 
 app.post('/user/login', controllers.User.login)
 app.post('/country/create', controllers.Country.create)
