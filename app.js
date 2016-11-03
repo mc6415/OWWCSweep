@@ -30,8 +30,8 @@ app.use('/', express.static(__dirname + '/public/views'));
 app.use('/js', express.static(__dirname + '/public/js'))
 app.use('/css', express.static(__dirname + '/public/css'))
 
-app.get('/:err?', function(req,res){
-  res.render('index', {error: req.params.err, loggedIn: isLoggedIn(req)});
+app.get('/', function(req,res){
+  res.render('index', {error: '', loggedIn: isLoggedIn(req)});
 })
 app.get('/register/:err?', controllers.User.register)
 app.get('/country/create/:access?', controllers.Country.createForm)
