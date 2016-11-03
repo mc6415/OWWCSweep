@@ -2,7 +2,9 @@ extends ./layout.pug
 
 block content
   script.
-    toastr["error"]('#{error}')
+      if('#{error}'.length > 0){
+        toastr["error"]('#{error}')
+      }      
   h2 Register
   form(action='/user/create', method='POST')
     .form-group
