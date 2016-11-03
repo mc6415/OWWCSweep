@@ -2,8 +2,13 @@ const User = require('../models/user')
 const sha256 = require('sha256');
 const randomstring = require('randomstring');
 
+var isLoggedIn = function (req){
+  var loggedIn = (typeof(req.cookies.user) == 'undefined');
+  return !loggedIn
+}
+
 module.exports.register = function(req,res){
-  res.render('register', {error: req.params["err"]})
+  res.render('register', {error: req.params["err"], loggedIn: isLoggedIn(req)})
 }
 
 module.exports.create = function(req,res){
@@ -30,5 +35,24 @@ module.exports.create = function(req,res){
 }
 
 module.exports.login = function(req,res){
-
+  User.find({'username': req.body.username}, function(err,docs){
+    if(docs.length > 0){
+      const user = docs[0];
+      const pass = sha256(user.salt) + sha256(req.body.password) + sha256(user.pepper);
+      if(pass == user.password){
+        var userCookie = {
+          "_id" : user._id,
+          "username": user.username,
+          "email": user.email,
+          "obfuscation": user.password
+        }
+        res.cookie('user', JSON.stringify(userCookie));
+        res.redirect('/');
+      } else {
+        res.redirect('/' + encodeURI("Couldn't log in was the password wrong?"))
+      }
+    } else {
+      res.redirect('/' + encodeURI("Username not found, please sign up before logging in"))
+    }
+  })
 }

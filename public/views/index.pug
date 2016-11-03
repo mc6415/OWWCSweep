@@ -1,6 +1,10 @@
 extends layout.pug
 
 block content
+  script.
+    if("#{error}".length > 0){
+      toastr["error"]("#{error}")
+    }
   .col-xs-offset-4.well.col-xs-4(style='margin-top:50px')
     form(action='/user/login', method='POST', style='text-align:center')
       .form-group

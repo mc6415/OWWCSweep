@@ -1,7 +1,6 @@
 var port = process.env.PORT || 3000,
     http = require('http'),
     fs = require('fs'),
-    html = fs.readFileSync('index.html'),
     express = require('express'),
     app = express(),
     path = require('path'),
@@ -15,6 +14,11 @@ var log = function(entry) {
     fs.appendFileSync('/tmp/sample-app.log', new Date().toISOString() + ' - ' + entry + '\n');
 };
 
+var isLoggedIn = function (req){
+  var loggedIn = (typeof(req.cookies.user) == 'undefined');
+  return !loggedIn
+}
+
 mongoose.connect('mongodb://sa:pass@ds029454.mlab.com:29454/cavalriesere')
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/public/views');
@@ -27,7 +31,7 @@ app.use('/js', express.static(__dirname + '/public/js'))
 app.use('/css', express.static(__dirname + '/public/css'))
 
 app.get('/:err?', function(req,res){
-  res.render('index');
+  res.render('index', {error: req.params.err, loggedIn: isLoggedIn(req)});
 })
 app.get('/register/:err?', controllers.User.register)
 app.get('/country/create/:access?', controllers.Country.createForm)

@@ -5,9 +5,14 @@
     div
       ul.nav.navbar-nav.navbar-right
         li
-          a(href='/register')
-            span.glyphicon.glyphicon-user
-            |  Sign Up
+          if loggedIn
+            a(href='/user/signout')
+              span.glyphicon.glyphicon-user
+              |  Sign Out
+          else
+            a(href='/register')
+              span.glyphicon.glyphicon-user
+              |  Register
         //- li
         //-   a(href='#')
         //-     span.glyphicon.glyphicon-log-in

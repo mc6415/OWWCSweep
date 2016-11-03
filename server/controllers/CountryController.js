@@ -1,9 +1,14 @@
 const Country = require('../models/country')
 
+var isLoggedIn = function (req){
+  var loggedIn = (typeof(req.cookies.user) == 'undefined');
+  return !loggedIn
+}
+
 module.exports.createForm = function(req,res){
   console.log(req.params)
   if(req.params["access"] == 'override'){
-    res.render('createcountry');
+    res.render('createcountry', {loggedIn: isLoggedIn(req)});
   } else {
     res.send("No Access")
   }
@@ -24,14 +29,15 @@ module.exports.create = function(req,res){
 }
 
 module.exports.view = function(req,res){
+  console.log(isLoggedIn(req));
   if(typeof(req.params.code) == 'undefined'){
     Country.find({}, function(err,docs){
-      res.render('viewcountries', {countries: docs})
+      res.render('viewcountries', {countries: docs, loggedIn: isLoggedIn(req)})
     })
   } else {
     Country.find({code: req.params.code}, function(err,docs){
       if(docs.length > 0){
-          res.render('viewcountry', {country: docs[0]})
+          res.render('viewcountry', {country: docs[0], loggedIn: isLoggedIn(req)})
       }
     })
   }
