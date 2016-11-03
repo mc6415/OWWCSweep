@@ -22,8 +22,13 @@ module.exports.create = function(req,res){
     if(typeof(err) == 'undefined'){
       res.redirect('/');
     } else{
-      res.redirect('/register/Error%20Saving%20Details%20Contact%20Admin')
+      const errorMessage = encodeURI("Error Saving Details Contact Admin");
+      res.redirect('/register/' + errorMessage)
     }
   })
+
+}
+
+module.exports.login = function(req,res){
 
 }
