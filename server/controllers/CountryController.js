@@ -22,3 +22,17 @@ module.exports.create = function(req,res){
   res.status(201).redirect('/country/create/override');
 
 }
+
+module.exports.view = function(req,res){
+  if(typeof(req.params.code) == 'undefined'){
+    Country.find({}, function(err,docs){
+      res.render('viewcountries', {countries: docs})
+    })
+  } else {
+    Country.find({code: req.params.code}, function(err,docs){
+      if(docs.length > 0){
+          res.render('viewcountry', {country: docs[0]})
+      }
+    })
+  }
+}

@@ -1,0 +1,13 @@
+extends ./layout.pug
+
+block content
+  table.table
+    thead
+      tr
+        th Country
+        th Taken By
+    tbody
+      for c in countries
+        tr
+          td=c.name
+          td=c.takenBy

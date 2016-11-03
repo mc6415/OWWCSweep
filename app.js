@@ -30,6 +30,7 @@ app.get('/', function(req,res){
   res.render('index');
 })
 app.get('/country/create/:access?', controllers.Country.createForm)
+app.get('/country/view/:code?', controllers.Country.view);
 
 app.post('/country/create', controllers.Country.create)
 

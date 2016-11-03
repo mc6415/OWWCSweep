@@ -5,5 +5,6 @@ module.exports = mongoose.model('Country', {
   code: {type: String, unique: true},
   flag: {type: String, required: true},
   taken: {type: Boolean, default: false, required: true},
+  takenBy: {type: String},
   description: {type: String}
 })
