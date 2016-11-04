@@ -1,0 +1,46 @@
+extends ./layout.pug
+
+block content
+  //- script(src='/js/tournament.jsx', type='text/babel')
+  #tournamentEntry
+  #bracket
+  script.
+    $.ajax({
+        url: '/tournament/get',
+        success: function(res){
+          if(typeof(res.data) == 'undefined'){
+            var bracket = {
+              teams: [],
+              results: []
+            }
+            $('#bracket').bracket({
+              init: bracket,
+              save: saveFn,
+              teamWidth: 95
+             })
+          } else {
+            $('#bracket').bracket({
+              init: JSON.parse(res.data),
+              save: saveFn,
+              teamWidth: 95
+             })
+          }          
+        }
+    })
+
+    function saveFn(data, userData){
+
+    }
+
+
+
+     function updateTournament(){
+       var data = $('#bracket').bracket('data');
+       var dataString = JSON.stringify(data);
+       $.ajax({
+         url: '/tournament/update',
+         data: {data: dataString},
+         method: 'POST'
+       })
+     }
+  button.btn.btn-primary(onclick="updateTournament()") UPDATE

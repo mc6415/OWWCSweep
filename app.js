@@ -21,7 +21,7 @@ var isLoggedIn = function (req){
 
 var isAdmin = function(req){
   if(isLoggedIn(req)){
-    return req.cookies.user.isAdmin > 0;
+    return JSON.parse(req.cookies.user).isAdmin > 0;
   }
   return false;
 }
@@ -48,10 +48,19 @@ app.get('/dashboard', controllers.User.dashboard)
 app.get('/user/signout', controllers.User.signout);
 app.get('/sweepstakes/signup', controllers.Sweepstakes.signup);
 app.get('/player/create', controllers.Player.createForm);
+app.get('/tournament/manage', function(req,res){
+  if(isAdmin(req)){
+    res.render('tournament');
+  } else {
+    res.redirect('/')
+  }
+})
+app.get('/tournament/get', controllers.Tournament.getTournament)
 
 app.post('/user/login', controllers.User.login)
 app.post('/country/create', controllers.Country.create)
 app.post('/user/create', controllers.User.create)
+app.post('/tournament/update', controllers.Tournament.update);
 
 // Listen on port 3000, IP defaults to 127.0.0.1
 app.listen(port, function(){

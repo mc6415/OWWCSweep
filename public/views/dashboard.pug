@@ -19,3 +19,15 @@ block content
       include ./countryPanel.pug
   .row(style='text-align:center')
     h1 Match Schedule:
+  div#tournament
+  script.
+    $.ajax({
+        url: '/tournament/get',
+        success: function(res){
+          var tournament = JSON.parse(res.data)
+          $('#tournament').bracket({
+            init: tournament,
+            teamWidth: 95
+           })
+        }
+    })
