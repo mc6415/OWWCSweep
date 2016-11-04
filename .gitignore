@@ -54,6 +54,7 @@ jspm_packages
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+.OWWCSweep.zip
 
 # Directories potentially created on remote AFP share
 .AppleDB
@@ -83,3 +84,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.zip
