@@ -19,7 +19,7 @@ block content
       include ./countryPanel.pug
   .row(style='text-align:center')
     h1 Match Schedule:
-  div#tournament
+  div#tournament.col-xs-offset-4
   script.
     $.ajax({
         url: '/tournament/get',
